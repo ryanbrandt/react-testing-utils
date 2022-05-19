@@ -5,11 +5,11 @@ Common wrappers and utilities for unit testing and mocking in React applications
 ## Usage
 
 ```tsx
-yarn add react-testing-utils
+yarn add @ryanbrandt/react-testing-utils
 
 // or
 
-npm install react-testing-utils
+npm install @ryanbrandt/react-testing-utils
 ```
 
 **Warning:** This project has several required peer dependencies which must be installed in your consuming project

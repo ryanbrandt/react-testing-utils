@@ -1,6 +1,7 @@
 {
-  "name": "react-testing-utils",
-  "version": "0.0.1",
+  "name": "@ryanbrandt/react-testing-utils",
+  "version": "0.1.0",
+  "repository": "https://github.com/ryanbrandt/react-testing-utils",
   "description": "Common Jest/React/RTL testing utilities",
   "author": "Ryan Brandt",
   "main": "dist/index.js",
@@ -9,6 +10,9 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "test": "jest --coverage",
     "build": "rollup -c"
