@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "removeComments": false,
+    "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "sourceMap": true,
+    "outDir": "lib",
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "types": ["jest"],
+    "baseUrl": ".",
+    "paths": {
+      "@lib/*": ["src/*"],
+      "@mocks/*": ["__mocks__/*"]
+    }
+  },
+  "include": ["*/**/*.ts", "*/**/*.tsx"],
+  "exclude": ["node_modules"]
+}

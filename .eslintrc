@@ -1,0 +1,35 @@
+{
+  "extends": [
+    "airbnb-base",
+    "prettier",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/typescript"
+  ],
+  "env": {
+    "node": true,
+    "jest": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "rules": {
+    "no-bitwise": 0,
+    "import/extensions": "off",
+    "import/export": 0,
+    "func-names": ["error", "never"],
+    "no-underscore-dangle": "off",
+    "linebreak-style": "off",
+    "object-curly-spacing": 2,
+    "curly": ["error", "all"],
+    "comma-dangle": ["error", "always-multiline"],
+    "no-ternary": "error",
+    "padding-line-between-statements": [
+      "error",
+      { "blankLine": "always", "prev": "*", "next": "return" }
+    ]
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
+  },
+  "plugins": ["@typescript-eslint", "import"]
+}
