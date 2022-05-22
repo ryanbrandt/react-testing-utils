@@ -4,7 +4,7 @@ interface Props {
   message: string;
 }
 
-class MockChildClassComponent extends Component<Props> {
+class MockedChildClassComponent extends Component<Props> {
   render() {
     const { message } = this.props;
 
@@ -12,4 +12,4 @@ class MockChildClassComponent extends Component<Props> {
   }
 }
 
-export default MockChildClassComponent;
+export default MockedChildClassComponent;

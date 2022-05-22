@@ -1,19 +1,17 @@
 import { render, screen } from "@testing-library/react";
 
-import MockClassComponentWrapper from "@lib/react/MockClassComponentWrapper";
+import MockClassComponent from "@lib/MockClassComponent";
 
-import MockClassComponent from "@mocks/class/MockClassComponent";
-import MockChildClassComponent from "@mocks/class/MockChildClassComponent";
+import MockedClassComponent from "@mocks/class/MockedClassComponent";
+import MockedChildClassComponent from "@mocks/class/MockedChildClassComponent";
 
-jest.mock("@mocks/class/MockChildClassComponent");
-const mockedChildComponent = new MockClassComponentWrapper(
-  MockChildClassComponent,
-);
+jest.mock("@mocks/class/MockedChildClassComponent");
+const mockedChildComponent = new MockClassComponent(MockedChildClassComponent);
 
 describe("MockClassComponentWrapper", () => {
   describe("constructor", () => {
     it("provides a default stub with the generated test id", () => {
-      render(<MockClassComponent />);
+      render(<MockedClassComponent />);
 
       expect(
         screen.getByTestId(mockedChildComponent.DATA_TEST_ID),
@@ -26,7 +24,7 @@ describe("MockClassComponentWrapper", () => {
 
   describe("__OVERRIDE__mock getter", () => {
     it("returns the actual mock object for overriding behavior", () => {
-      render(<MockClassComponent />);
+      render(<MockedClassComponent />);
 
       expect(
         mockedChildComponent.__OVERRIDE__mock.mockReturnValue,
@@ -40,7 +38,7 @@ describe("MockClassComponentWrapper", () => {
       const mockValue = <div>{mockContent}</div>;
       mockedChildComponent.mockRenderReturnValue(mockValue);
 
-      render(<MockClassComponent />);
+      render(<MockedClassComponent />);
 
       expect(
         screen.getByTestId(mockedChildComponent.DATA_TEST_ID).firstChild
@@ -57,7 +55,7 @@ describe("MockClassComponentWrapper", () => {
         return <div>{message}</div>;
       });
 
-      render(<MockClassComponent />);
+      render(<MockedClassComponent />);
 
       expect(
         screen.getByTestId(mockedChildComponent.DATA_TEST_ID).firstChild

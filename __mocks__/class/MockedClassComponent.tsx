@@ -1,8 +1,8 @@
 import { Component } from "react";
 
-import MockChildClassComponent from "./MockChildClassComponent";
+import MockChildClassComponent from "./MockedChildClassComponent";
 
-class MockClassComponent extends Component {
+class MockedClassComponent extends Component {
   // eslint-disable-next-line class-methods-use-this
   render() {
     return (
@@ -13,4 +13,4 @@ class MockClassComponent extends Component {
   }
 }
 
-export default MockClassComponent;
+export default MockedClassComponent;

@@ -3,3 +3,4 @@ coverage/
 
 .yarn/cache
 dist/
+install-state.gz

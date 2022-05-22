@@ -1,25 +1,24 @@
 import "@testing-library/jest-dom";
 
-import JestUtilities from "@lib/jest";
-import AbstractMockComponentWrapper from "@lib/react/AbstractMockComponentWrapper";
+import AbstractMockComponent from "@lib/AbstractMockComponent";
 
 type ReactFunctionComponentWithProps<T> = React.FunctionComponent<T>;
 
 /**
- * A standard mock function component wrapper
+ * A standard mock function component instance
  *
  * @example
  * jest.mock("path/to/my/function/component");
- * const mockMyFunctionComponent = new MockFunctionComponentWrapper(MyFunctionComponent);
+ * const mockMyFunctionComponent = new MockFunctionComponent(MyFunctionComponent);
  */
-class MockFunctionComponentWrapper<T> extends AbstractMockComponentWrapper<T> {
+class MockFunctionComponent<T> extends AbstractMockComponent<T> {
   protected declare _mock: jest.MockedFunction<
     ReactFunctionComponentWithProps<T>
   >;
 
   constructor(actual: ReactFunctionComponentWithProps<T>) {
     super();
-    this._mock = JestUtilities.assertAsMockFunction(actual);
+    this._mock = jest.mocked(actual);
 
     this._configureMockImplementation();
   }
@@ -66,4 +65,4 @@ class MockFunctionComponentWrapper<T> extends AbstractMockComponentWrapper<T> {
   };
 }
 
-export default MockFunctionComponentWrapper;
+export default MockFunctionComponent;

@@ -1,10 +1,11 @@
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 /**
- * Abstract base mock component wrapper class
+ * Abstract base mock component class
  */
-abstract class AbstractMockComponentWrapper<T> {
+abstract class AbstractMockComponent<T> {
   protected _mock: jest.Mocked<unknown>;
 
   receivedProps: T;
@@ -28,9 +29,12 @@ abstract class AbstractMockComponentWrapper<T> {
 
   /**
    * Retrieves the root element of the mocked component, which will
-   * always be a div with the component data-testid applied
+   * always be a div with this.DATA_TEST_ID applied
    *
-   * Should only be used when one instance of the mock component is on the screen
+   * If more than one instance of the component or no instances of the component
+   * are on the screen this method will throw
+   *
+   * @see mockRoots
    */
   get mockRoot() {
     return screen.getByTestId(this.DATA_TEST_ID);
@@ -38,9 +42,12 @@ abstract class AbstractMockComponentWrapper<T> {
 
   /**
    * Retrieves the root elements of all of the mocked component instances, which will
-   * always be a div with the component data-testid applied
+   * always be a div with this.DATA_TEST_ID applied
    *
-   * Can be used when multiple instances of the mock component are on the screen
+   * Can be used when one or many instances of the mock component exist on the screen.
+   * If no instances exist this method will throw
+   *
+   * @see mockRoot
    */
   get mockRoots() {
     return screen.getAllByTestId(this.DATA_TEST_ID);
@@ -99,6 +106,71 @@ abstract class AbstractMockComponentWrapper<T> {
   assertNotOnScreen = (): void => {
     expect(() => this.mockRoot).toThrow();
   };
+
+  /**
+   * Clicks the root element defined in the mock component's return value/implementation
+   * This method will throw if no or more than a single instance of the mock component
+   * exists on the screen
+   *
+   * @param root The root element to click
+   * @default this.mockRoot.firstChild
+   *
+   * @see clickInstance
+   *
+   */
+  click = async (
+    root = this.mockRoot.firstChild as HTMLElement,
+  ): Promise<void> => {
+    await userEvent.click(root);
+  };
+
+  /**
+   * Clicks the root element of a specific instance of the mock component as defined in the
+   * mock return value/implementation.This method will throw if the provided index is not found.
+   *
+   * @param instanceIndex The index of the instance which should be clicked
+   *
+   * @see click
+   *
+   */
+  clickInstance = async (instanceIndex: number): Promise<void> => {
+    await this.click(this.mockRoots[instanceIndex].firstChild as HTMLElement);
+  };
+
+  /**
+   * Types into the root element of your mock. This method will throw if the root element
+   * does not support typing or if there are none or mulitple instances of the mock on the
+   * screen.
+   *
+   * @param value The value to type
+   * @param root The root element to type into
+   * @default this.mockRoot.firstChild
+   *
+   * @see typeInstance
+   */
+  type = async (
+    value: string,
+    root = this.mockRoot.firstChild as HTMLElement,
+  ): Promise<void> => {
+    await userEvent.type(root, value);
+  };
+
+  /**
+   * Types into the root element of a specific instance of the mock component. This method will throw
+   * if the root element does not support typing or if the provided instance index is not found.
+   *
+   * @param value The value to type
+   * @param instanceIndex The index of the instance to type into
+   */
+  typeInstance = async (
+    value: string,
+    instanceIndex: number,
+  ): Promise<void> => {
+    await this.type(
+      value,
+      this.mockRoots[instanceIndex].firstChild as HTMLElement,
+    );
+  };
 }
 
-export default AbstractMockComponentWrapper;
+export default AbstractMockComponent;

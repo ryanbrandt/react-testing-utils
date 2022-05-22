@@ -1,23 +1,22 @@
 import "@testing-library/jest-dom";
 
-import JestUtilities from "@lib/jest";
-import AbstractMockComponentWrapper from "@lib/react/AbstractMockComponentWrapper";
+import AbstractMockComponent from "@lib/AbstractMockComponent";
 
 type ReactClassComponentWithProps<T> = React.ComponentClass<T>;
 
 /**
- * A standard mock class component wrapper
+ * A standard mock class component
  *
  * @example
  * jest.mock("path/to/my/class/component");
- * const mockMyClassComponent = new MockClassComponentWrapper(MyClassComponent);
+ * const mockMyClassComponent = new MockClassComponent(MyClassComponent);
  */
-class MockClassComponentWrapper<T> extends AbstractMockComponentWrapper<T> {
-  protected declare _mock: jest.MockedClass<ReactClassComponentWithProps<T>>;
+class MockClassComponent<T> extends AbstractMockComponent<T> {
+  protected declare _mock: jest.MockedObject<ReactClassComponentWithProps<T>>;
 
   constructor(actual: ReactClassComponentWithProps<T>) {
     super();
-    this._mock = JestUtilities.assertAsMockClass(actual);
+    this._mock = jest.mocked(actual);
 
     this._configureMockImplementation();
   }
@@ -68,4 +67,4 @@ class MockClassComponentWrapper<T> extends AbstractMockComponentWrapper<T> {
   };
 }
 
-export default MockClassComponentWrapper;
+export default MockClassComponent;

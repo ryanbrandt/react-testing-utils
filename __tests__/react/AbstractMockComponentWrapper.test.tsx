@@ -1,13 +1,13 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import MockFunctionComponentWrapper from "@lib/react/MockFunctionComponentWrapper";
+import MockFunctionComponent from "@lib/MockFunctionComponent";
 
-import MockChildFunctionComponent from "@mocks/function/MockChildFunctionComponent";
-import MockReactiveFunctionComponent from "@mocks/function/MockReactiveFunctionComponent";
+import MockChildFunctionComponent from "@mocks/function/MockedChildFunctionComponent";
+import MockReactiveFunctionComponent from "@mocks/function/MockedReactiveFunctionComponent";
 
-jest.mock("@mocks/function/MockChildFunctionComponent");
-const mockedChildComponent = new MockFunctionComponentWrapper(
+jest.mock("@mocks/function/MockedChildFunctionComponent");
+const mockedChildComponent = new MockFunctionComponent(
   MockChildFunctionComponent,
 );
 
@@ -108,6 +108,68 @@ describe("AbstractMockComponentWrapper", () => {
       clickToggleShowCountBtn();
 
       waitFor(() => mockedChildComponent.assertNotOnScreen());
+    });
+  });
+
+  describe("click", () => {
+    it("clicks the component", async () => {
+      const mockOnClick = jest.fn();
+      mockedChildComponent.mockReturnValue(<div onClick={mockOnClick} />);
+
+      render(<MockReactiveFunctionComponent />);
+
+      await mockedChildComponent.click();
+
+      expect(mockOnClick).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe("clickInstance", () => {
+    it("clicks the specified instance of the component", async () => {
+      const mockOnClick = jest.fn();
+      mockedChildComponent.mockReturnValue(<div onClick={mockOnClick} />);
+
+      render(<MockReactiveFunctionComponent />);
+
+      await mockedChildComponent.clickInstance(0);
+
+      expect(mockOnClick).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe("type", () => {
+    it("types into the component", async () => {
+      const mockTypeValue = "F";
+
+      const mockOnChange = jest.fn();
+      mockedChildComponent.mockReturnValue(
+        <input onChange={(e) => mockOnChange(e.target.value)} />,
+      );
+
+      render(<MockReactiveFunctionComponent />);
+
+      await mockedChildComponent.type(mockTypeValue);
+
+      expect(mockOnChange).toHaveBeenCalledTimes(1);
+      expect(mockOnChange).toHaveBeenCalledWith(mockTypeValue);
+    });
+  });
+
+  describe("typeInstance", () => {
+    it("types into the specified instance of the component", async () => {
+      const mockTypeValue = "F";
+
+      const mockOnChange = jest.fn();
+      mockedChildComponent.mockReturnValue(
+        <input onChange={(e) => mockOnChange(e.target.value)} />,
+      );
+
+      render(<MockReactiveFunctionComponent />);
+
+      await mockedChildComponent.typeInstance(mockTypeValue, 0);
+
+      expect(mockOnChange).toHaveBeenCalledTimes(1);
+      expect(mockOnChange).toHaveBeenCalledWith(mockTypeValue);
     });
   });
 });

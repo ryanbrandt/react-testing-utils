@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-import MockChildFunctionComponent from "./MockChildFunctionComponent";
+import MockChildFunctionComponent from "./MockedChildFunctionComponent";
 
-const MockReactiveFunctionComponent = () => {
+const MockedReactiveFunctionComponent = () => {
   const [count, setCount] = useState(1);
   const [showCount, setShowCount] = useState(true);
 
@@ -17,4 +17,4 @@ const MockReactiveFunctionComponent = () => {
   );
 };
 
-export default MockReactiveFunctionComponent;
+export default MockedReactiveFunctionComponent;
