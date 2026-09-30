@@ -16,16 +16,19 @@ npm install @ryanbrandt/react-testing-utils
 
 ```json
 "peerDependencies": {
-  "@testing-library/dom": ">=8.13.0",
-  "@testing-library/jest-dom": ">=5.14.1",
-  "@testing-library/react": ">=12.1.2",
-  "@testing-library/user-event": ">=14.1.0",
-  "jest": ">=28.1.0",
-  "jest-environment-jsdom": ">=28.1.0",
-  "react": ">=17.0.2",
-  "react-dom": ">=17.0.2",
+  "@testing-library/dom": "^8.13.0 || ^9.0.0 || ^10.0.0",
+  "@testing-library/jest-dom": "^5.14.1 || ^6.0.0 || ^7.0.0",
+  "@testing-library/react": "^13.0.0 || ^14.0.0 || ^15.0.0 || ^16.0.0",
+  "@testing-library/user-event": "^14.1.0",
+  "jest": "^28.1.0 || ^29.0.0 || ^30.0.0",
+  "jest-environment-jsdom": "^28.1.0 || ^29.0.0 || ^30.0.0",
+  "react": "^18.3.0 || ^19.0.0",
+  "react-dom": "^18.3.0 || ^19.0.0"
 }
 ```
+
+React 19 needs `@testing-library/react` 16.1 or later. The type declarations use
+`React.JSX`, so TypeScript consumers need `@types/react` 18.2.6 or later.
 
 ## API
 
