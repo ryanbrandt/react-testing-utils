@@ -21,12 +21,18 @@ abstract class AbstractMockComponent<T> {
     this.DATA_TEST_ID = Math.random().toString(36).slice(2);
   }
 
-  private _buildPropsExpectation = (props: Partial<T>) => [
-    expect.objectContaining({
-      ...props,
-    }),
-    expect.anything(),
-  ];
+  // The assertions match only the props (first) argument. What React passes
+  // as the second argument depends on the version: React 19 passes
+  // `undefined` to function components.
+  private _buildPropsExpectation = (props: Partial<T>): unknown =>
+    expect.objectContaining(props);
+
+  /**
+   * The props argument of each call to the mock, in call order
+   */
+  private get _propsByCall(): unknown[] {
+    return (this._mock as jest.Mock).mock.calls.map(([props]) => props);
+  }
 
   /**
    * Retrieves the root element of the mocked component, which will
@@ -59,8 +65,8 @@ abstract class AbstractMockComponent<T> {
    * @param props The subset of props to match against
    */
   assertCalledWith = (props: Partial<T>): void => {
-    expect(this._mock).toHaveBeenCalledWith(
-      ...this._buildPropsExpectation(props),
+    expect(this._propsByCall).toContainEqual(
+      this._buildPropsExpectation(props),
     );
   };
 
@@ -69,8 +75,10 @@ abstract class AbstractMockComponent<T> {
    * @param props The subset of props to match against
    */
   assertLastCalledWith = (props: Partial<T>): void => {
-    expect(this._mock).toHaveBeenLastCalledWith(
-      ...this._buildPropsExpectation(props),
+    const propsByCall = this._propsByCall;
+
+    expect(propsByCall[propsByCall.length - 1]).toEqual(
+      this._buildPropsExpectation(props),
     );
   };
 
@@ -80,9 +88,8 @@ abstract class AbstractMockComponent<T> {
    * @param n The render number to check against
    */
   assertNthCalledWith = (props: Partial<T>, n: number): void => {
-    expect(this._mock).toHaveBeenNthCalledWith(
-      n,
-      ...this._buildPropsExpectation(props),
+    expect(this._propsByCall[n - 1]).toEqual(
+      this._buildPropsExpectation(props),
     );
   };
 

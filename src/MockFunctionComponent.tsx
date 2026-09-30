@@ -1,10 +1,11 @@
 // Keep the jest global types in the emitted declarations (TS 5.5+ no longer adds this).
 /// <reference types="jest" preserve="true" />
 import "@testing-library/jest-dom";
+import type { FunctionComponent, JSX } from "react";
 
 import AbstractMockComponent from "@lib/AbstractMockComponent";
 
-type ReactFunctionComponentWithProps<T> = React.FunctionComponent<T>;
+type ReactFunctionComponentWithProps<T> = FunctionComponent<T>;
 
 /**
  * A standard mock function component instance
