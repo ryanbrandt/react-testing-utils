@@ -21,7 +21,6 @@ abstract class AbstractMockComponent<T> {
     this.DATA_TEST_ID = Math.random().toString(36).slice(2);
   }
 
-  // eslint-disable-next-line class-methods-use-this
   private _buildPropsExpectation = (props: Partial<T>) => [
     expect.objectContaining({
       ...props,

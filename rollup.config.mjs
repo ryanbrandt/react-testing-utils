@@ -29,8 +29,11 @@ export default {
   // A bare import that isn't a peer would otherwise ship as an unresolved
   // require() with only a warning; report it as an error instead.
   onLog(level, log, handler) {
-    if (log.code === "UNRESOLVED_IMPORT") return handler("error", log);
-    handler(level, log);
+    if (log.code === "UNRESOLVED_IMPORT") {
+      handler("error", log);
+    } else {
+      handler(level, log);
+    }
   },
   plugins: [
     // Resolves the tsconfig "paths" (@lib/*) itself. JS only; declarations

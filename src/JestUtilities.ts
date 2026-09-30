@@ -1,5 +1,7 @@
 // Keep the jest global types in the emitted declarations (TS 5.5+ no longer adds this).
 /// <reference types="jest" preserve="true" />
+// Same constraint as jest.MockedFunction; `unknown` would reject most functions.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyFunction = (...args: any[]) => any;
 
 /**
