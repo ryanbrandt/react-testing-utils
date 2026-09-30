@@ -14,7 +14,7 @@ type ReactFunctionComponentWithProps<T> = React.FunctionComponent<T>;
  * const mockMyFunctionComponent = new MockFunctionComponent(MyFunctionComponent);
  */
 class MockFunctionComponent<T> extends AbstractMockComponent<T> {
-  protected declare _mock: jest.MockedFunction<
+  declare protected _mock: jest.MockedFunction<
     ReactFunctionComponentWithProps<T>
   >;
 

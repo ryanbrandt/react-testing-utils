@@ -14,7 +14,7 @@ type ReactClassComponentWithProps<T> = React.ComponentClass<T>;
  * const mockMyClassComponent = new MockClassComponent(MyClassComponent);
  */
 class MockClassComponent<T> extends AbstractMockComponent<T> {
-  protected declare _mock: jest.MockedObject<ReactClassComponentWithProps<T>>;
+  declare protected _mock: jest.MockedObject<ReactClassComponentWithProps<T>>;
 
   constructor(actual: ReactClassComponentWithProps<T>) {
     super();
