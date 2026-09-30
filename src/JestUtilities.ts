@@ -1,6 +1,15 @@
 type AnyFunction = (...args: any[]) => any;
 
+/**
+ * Type helpers for values mocked with `jest.mock()`
+ *
+ * Jest's built-in `jest.mocked()` is the equivalent of both helpers.
+ */
 class JestUtilities {
+  /**
+   * Types a function mocked by `jest.mock()` as a Jest mock function
+   * @param actual The mocked function
+   */
   static assertAsMockFunction = <T extends AnyFunction>(
     actual: T,
   ): jest.MockedFunction<T> => {
@@ -9,6 +18,10 @@ class JestUtilities {
     return mockedFunction;
   };
 
+  /**
+   * Types a class mocked by `jest.mock()` as a Jest mock class
+   * @param actual The mocked class
+   */
   static assertAsMockClass = <T extends jest.Constructable>(
     actual: T,
   ): jest.MockedClass<T> => {

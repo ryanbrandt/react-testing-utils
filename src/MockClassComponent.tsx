@@ -16,7 +16,7 @@ class MockClassComponent<T> extends AbstractMockComponent<T> {
 
   constructor(actual: ReactClassComponentWithProps<T>) {
     super();
-    this._mock = jest.mocked(actual);
+    this._mock = jest.mocked(actual, { shallow: true });
 
     this._configureMockImplementation();
   }

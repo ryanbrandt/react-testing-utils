@@ -44,7 +44,7 @@ describe("MockFunctionComponentWrapper", () => {
 
       expect(
         screen.getByTestId(mockedChildComponent.DATA_TEST_ID).firstChild
-          .textContent,
+          ?.textContent,
       ).toEqual(mockContent);
     });
   });
@@ -61,7 +61,7 @@ describe("MockFunctionComponentWrapper", () => {
 
       expect(
         screen.getByTestId(mockedChildComponent.DATA_TEST_ID).firstChild
-          .textContent,
+          ?.textContent,
       ).toEqual("World");
     });
   });

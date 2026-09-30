@@ -6,9 +6,9 @@ import userEvent from "@testing-library/user-event";
  * Abstract base mock component class
  */
 abstract class AbstractMockComponent<T> {
-  protected _mock: jest.Mocked<unknown>;
+  protected _mock!: jest.Mocked<unknown>;
 
-  receivedProps: T;
+  receivedProps!: T;
 
   /**
    * The data-testid applied to the component mocks
