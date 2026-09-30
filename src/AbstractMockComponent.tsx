@@ -1,3 +1,5 @@
+// Keep the jest global types in the emitted declarations (TS 5.5+ no longer adds this).
+/// <reference types="jest" preserve="true" />
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
