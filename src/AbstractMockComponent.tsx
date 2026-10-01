@@ -1,3 +1,5 @@
+// Keep the jest global types in the emitted declarations (TS 5.5+ no longer adds this).
+/// <reference types="jest" preserve="true" />
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -6,9 +8,9 @@ import userEvent from "@testing-library/user-event";
  * Abstract base mock component class
  */
 abstract class AbstractMockComponent<T> {
-  protected _mock: jest.Mocked<unknown>;
+  protected _mock!: jest.Mocked<unknown>;
 
-  receivedProps: T;
+  receivedProps!: T;
 
   /**
    * The data-testid applied to the component mocks
@@ -19,7 +21,6 @@ abstract class AbstractMockComponent<T> {
     this.DATA_TEST_ID = Math.random().toString(36).slice(2);
   }
 
-  // eslint-disable-next-line class-methods-use-this
   private _buildPropsExpectation = (props: Partial<T>) => [
     expect.objectContaining({
       ...props,

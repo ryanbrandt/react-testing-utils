@@ -16,12 +16,12 @@ describe("AbstractMockComponentWrapper", () => {
     jest.clearAllMocks();
   });
 
-  const clickCountIncrementBtn = (): void => {
-    userEvent.click(screen.getByText("Click Me"));
+  const clickCountIncrementBtn = async (): Promise<void> => {
+    await userEvent.click(screen.getByText("Click Me"));
   };
 
-  const clickToggleShowCountBtn = (): void => {
-    userEvent.click(screen.getByText("Toggle Show Count"));
+  const clickToggleShowCountBtn = async (): Promise<void> => {
+    await userEvent.click(screen.getByText("Toggle Show Count"));
   };
 
   describe("mockRoot getter", () => {
@@ -51,14 +51,14 @@ describe("AbstractMockComponentWrapper", () => {
   });
 
   describe("assertLastCalledWith", () => {
-    it("asserts that the component was last called with the provided subset of props", () => {
+    it("asserts that the component was last called with the provided subset of props", async () => {
       render(<MockReactiveFunctionComponent />);
 
       mockedChildComponent.assertLastCalledWith({ message: "The count is 1" });
 
-      clickCountIncrementBtn();
+      await clickCountIncrementBtn();
 
-      waitFor(() =>
+      await waitFor(() =>
         mockedChildComponent.assertLastCalledWith({
           message: "The count is 2",
         }),
@@ -67,19 +67,21 @@ describe("AbstractMockComponentWrapper", () => {
   });
 
   describe("assertNthCalledWith", () => {
-    it("asserts that the component was nth called with the provided subset of props", () => {
+    it("asserts that the component was nth called with the provided subset of props", async () => {
       render(<MockReactiveFunctionComponent />);
-      const clicks = [1, 2, 3];
+      const clicks = 3;
 
-      clicks.forEach(() => clickCountIncrementBtn());
-      clicks.forEach((_, i) =>
-        waitFor(() =>
-          mockedChildComponent.assertNthCalledWith(
-            { message: `The count is ${i + 1}` },
-            i + 1,
-          ),
-        ),
-      );
+      for (let click = 0; click < clicks; click += 1) {
+        await clickCountIncrementBtn();
+      }
+
+      // Render n shows count n: the initial render, then one per click.
+      for (let n = 1; n <= clicks + 1; n += 1) {
+        mockedChildComponent.assertNthCalledWith(
+          { message: `The count is ${n}` },
+          n,
+        );
+      }
     });
   });
 
@@ -102,12 +104,12 @@ describe("AbstractMockComponentWrapper", () => {
   });
 
   describe("assertNotOnScreen", () => {
-    it("asserts that the component is not on the screen", () => {
+    it("asserts that the component is not on the screen", async () => {
       render(<MockReactiveFunctionComponent />);
 
-      clickToggleShowCountBtn();
+      await clickToggleShowCountBtn();
 
-      waitFor(() => mockedChildComponent.assertNotOnScreen());
+      await waitFor(() => mockedChildComponent.assertNotOnScreen());
     });
   });
 

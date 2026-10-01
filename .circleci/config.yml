@@ -1,19 +1,46 @@
 version: 2.1
-jobs:
-  build:
+
+executors:
+  node:
     docker:
-      - image: node:16-alpine
+      - image: cimg/node:24.21
         environment:
           TERM: xterm
           TZ: "America/New_York"
 
-    working_directory: ~/repo
-
+commands:
+  install:
+    description: Check out the repo and install dependencies from the lockfile
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - v1-yarn-{{ checksum "yarn.lock" }}
+      - run: yarn install --immutable
+      - save_cache:
+          key: v1-yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.yarn/berry/cache
 
-      - run: yarn install
-
+jobs:
+  check:
+    executor: node
+    steps:
+      - install
+      - run: yarn lint
+      # Keep checking after a failure so one run reports every problem.
       - run:
-          name: Unit Test
-          command: yarn test
+          command: yarn format:check
+          when: always
+      - run:
+          command: yarn typecheck
+          when: always
+      - run:
+          command: yarn test --runInBand
+          when: always
+      - run: yarn build
+
+workflows:
+  ci:
+    jobs:
+      - check

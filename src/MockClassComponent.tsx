@@ -1,3 +1,5 @@
+// Keep the jest global types in the emitted declarations (TS 5.5+ no longer adds this).
+/// <reference types="jest" preserve="true" />
 import "@testing-library/jest-dom";
 
 import AbstractMockComponent from "@lib/AbstractMockComponent";
@@ -12,11 +14,11 @@ type ReactClassComponentWithProps<T> = React.ComponentClass<T>;
  * const mockMyClassComponent = new MockClassComponent(MyClassComponent);
  */
 class MockClassComponent<T> extends AbstractMockComponent<T> {
-  protected declare _mock: jest.MockedObject<ReactClassComponentWithProps<T>>;
+  declare protected _mock: jest.MockedObject<ReactClassComponentWithProps<T>>;
 
   constructor(actual: ReactClassComponentWithProps<T>) {
     super();
-    this._mock = jest.mocked(actual);
+    this._mock = jest.mocked(actual, { shallow: true });
 
     this._configureMockImplementation();
   }

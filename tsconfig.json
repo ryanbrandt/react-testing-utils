@@ -2,21 +2,25 @@
   "compilerOptions": {
     "target": "ESNext",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "removeComments": false,
-    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "sourceMap": true,
-    "outDir": "lib",
-    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "noEmit": true,
     "jsx": "react-jsx",
     "types": ["jest"],
-    "baseUrl": ".",
     "paths": {
-      "@lib/*": ["src/*"],
-      "@mocks/*": ["__mocks__/*"]
+      "@lib/*": ["./src/*"],
+      "@mocks/*": ["./__mocks__/*"]
     }
   },
-  "include": ["*/**/*.ts", "*/**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": ["src", "__tests__", "__mocks__"],
+  "exclude": ["dist"]
 }
