@@ -38,6 +38,9 @@ jobs:
       - run:
           command: yarn test --runInBand
           when: always
+      - run:
+          command: yarn test:react18 --runInBand
+          when: always
       - run: yarn build
 
 workflows:

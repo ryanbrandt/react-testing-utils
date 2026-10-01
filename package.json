@@ -1,6 +1,6 @@
 {
   "name": "@ryanbrandt/react-testing-utils",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "repository": "https://github.com/ryanbrandt/react-testing-utils",
   "license": "MIT",
   "description": "Jest/React/RTL component unit testing utilities",
@@ -29,6 +29,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "jest --coverage",
+    "test:react18": "REACT_VERSION=18 jest --coverage",
     "build": "rm -rf dist && rollup -c && tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json"
   },
   "devDependencies": {
@@ -41,8 +42,8 @@
     "@testing-library/user-event": "^14.6.7",
     "@types/jest": "^30.0.0",
     "@types/node": "^24.19.0",
-    "@types/react": "^18.3.31",
-    "@types/react-dom": "^18.3.7",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
     "eslint": "^10.11.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-import-resolver-typescript": "^4.4.5",
@@ -51,8 +52,10 @@
     "jest": "^30.5.2",
     "jest-environment-jsdom": "^30.5.2",
     "prettier": "^3.9.9",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^19.3.0",
+    "react-18": "npm:react@^18.3.1",
+    "react-dom": "^19.3.0",
+    "react-dom-18": "npm:react-dom@^18.3.1",
     "rollup": "^4.63.5",
     "ts-jest": "^29.4.14",
     "tsc-alias": "~1.8.17",
@@ -61,14 +64,14 @@
     "typescript-eslint": "^8.71.0"
   },
   "peerDependencies": {
-    "@testing-library/dom": ">=8.13.0",
-    "@testing-library/jest-dom": ">=5.14.1",
-    "@testing-library/react": ">=12.1.2",
-    "@testing-library/user-event": ">=14.1.0",
-    "jest": ">=28.1.0",
-    "jest-environment-jsdom": ">=28.1.0",
-    "react": ">=17.0.2",
-    "react-dom": ">=17.0.2"
+    "@testing-library/dom": "^8.13.0 || ^9.0.0 || ^10.0.0",
+    "@testing-library/jest-dom": "^5.14.1 || ^6.0.0 || ^7.0.0",
+    "@testing-library/react": "^13.0.0 || ^14.0.0 || ^15.0.0 || ^16.0.0",
+    "@testing-library/user-event": "^14.1.0",
+    "jest": "^28.1.0 || ^29.0.0 || ^30.0.0",
+    "jest-environment-jsdom": "^28.1.0 || ^29.0.0 || ^30.0.0",
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
   },
   "engines": {
     "node": ">=20.19"

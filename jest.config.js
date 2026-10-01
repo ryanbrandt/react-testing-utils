@@ -1,3 +1,13 @@
+// `REACT_VERSION=18 jest` (yarn test:react18) runs the suite on React 18.3,
+// installed as the react-18 / react-dom-18 aliases. The mapping also applies
+// inside node_modules, so @testing-library/react gets React 18 too.
+const react18Mapper = {
+  "^react$": "react-18",
+  "^react/(.*)$": "react-18/$1",
+  "^react-dom$": "react-dom-18",
+  "^react-dom/(.*)$": "react-dom-18/$1",
+};
+
 /** @type {import('jest').Config} */
 module.exports = {
   roots: ["<rootDir>"],
@@ -12,6 +22,7 @@ module.exports = {
   moduleNameMapper: {
     "@lib/(.*)": "<rootDir>/src/$1",
     "@mocks/(.*)": "<rootDir>/__mocks__/$1",
+    ...(process.env.REACT_VERSION === "18" && react18Mapper),
   },
   modulePathIgnorePatterns: ["<rootDir>/dist"],
   testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",

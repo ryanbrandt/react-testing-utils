@@ -15,7 +15,7 @@
     "verbatimModuleSyntax": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["jest"],
+    "types": ["jest", "node"],
     "paths": {
       "@lib/*": ["./src/*"],
       "@mocks/*": ["./__mocks__/*"]
