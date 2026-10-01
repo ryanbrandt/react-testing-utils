@@ -1,6 +1,6 @@
 {
   "name": "@ryanbrandt/react-testing-utils",
-  "version": "0.4.0",
+  "version": "0.5.1",
   "repository": "https://github.com/ryanbrandt/react-testing-utils",
   "license": "MIT",
   "description": "Jest/React/RTL component unit testing utilities",
