@@ -28,9 +28,16 @@ jobs:
     steps:
       - install
       - run: yarn lint
-      - run: yarn format:check
-      - run: yarn typecheck
-      - run: yarn test --runInBand
+      # Keep checking after a failure so one run reports every problem.
+      - run:
+          command: yarn format:check
+          when: always
+      - run:
+          command: yarn typecheck
+          when: always
+      - run:
+          command: yarn test --runInBand
+          when: always
       - run: yarn build
 
 workflows:
