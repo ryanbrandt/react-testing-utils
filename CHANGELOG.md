@@ -4,7 +4,7 @@
 
 ### React 19 support
 
-- `react` and `react-dom` peers are now `^18.3.0 || ^19.0.0`.
+- `react` and `react-dom` peers are now `^18.0.0 || ^19.0.0`.
 - `assertCalledWith`, `assertLastCalledWith` and `assertNthCalledWith` match
   only the props argument of each call. They used to expect exactly two
   arguments, `(objectContaining(props), anything())`. React 19 passes
@@ -23,7 +23,7 @@ current majors:
 
 | Peer                             | 0.5        | 0.6                                                     |
 | -------------------------------- | ---------- | ------------------------------------------------------- |
-| `react`, `react-dom`             | `>=17.0.2` | `^18.3.0 \|\| ^19.0.0`                                  |
+| `react`, `react-dom`             | `>=17.0.2` | `^18.0.0 \|\| ^19.0.0`                                  |
 | `@testing-library/react`         | `>=12.1.2` | `^13 \|\| ^14 \|\| ^15 \|\| ^16` (React 19 needs 16.1+) |
 | `@testing-library/dom`           | `>=8.13.0` | `^8.13.0 \|\| ^9 \|\| ^10`                              |
 | `@testing-library/jest-dom`      | `>=5.14.1` | `^5.14.1 \|\| ^6 \|\| ^7`                               |

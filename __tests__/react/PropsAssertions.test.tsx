@@ -63,4 +63,21 @@ describe("function component call assertions", () => {
       mockedChildComponent.assertNthCalledWith({ message: "First" }, 3),
     ).toThrow();
   });
+
+  // Before Jest 30, expect(undefined).toEqual(objectContaining({})) passes,
+  // so a missing call must fail explicitly even with empty expected props.
+  it("fail for a call that never happened, even with empty props", () => {
+    expect(() => mockedChildComponent.assertLastCalledWith({})).toThrow(
+      "called 0 time(s)",
+    );
+
+    callMock("First", undefined);
+
+    expect(() => mockedChildComponent.assertNthCalledWith({}, 0)).toThrow(
+      "Expected a call #0",
+    );
+    expect(() => mockedChildComponent.assertNthCalledWith({}, 2)).toThrow(
+      "called 1 time(s)",
+    );
+  });
 });

@@ -75,11 +75,7 @@ abstract class AbstractMockComponent<T> {
    * @param props The subset of props to match against
    */
   assertLastCalledWith = (props: Partial<T>): void => {
-    const propsByCall = this._propsByCall;
-
-    expect(propsByCall[propsByCall.length - 1]).toEqual(
-      this._buildPropsExpectation(props),
-    );
+    this.assertNthCalledWith(props, this._propsByCall.length);
   };
 
   /**
@@ -88,9 +84,17 @@ abstract class AbstractMockComponent<T> {
    * @param n The render number to check against
    */
   assertNthCalledWith = (props: Partial<T>, n: number): void => {
-    expect(this._propsByCall[n - 1]).toEqual(
-      this._buildPropsExpectation(props),
-    );
+    const propsByCall = this._propsByCall;
+
+    // Fail clearly for a call that never happened. Before Jest 30,
+    // expect(undefined).toEqual(objectContaining({})) passes.
+    if (n < 1 || n > propsByCall.length) {
+      throw new Error(
+        `Expected a call #${n}, but the component was called ${propsByCall.length} time(s)`,
+      );
+    }
+
+    expect(propsByCall[n - 1]).toEqual(this._buildPropsExpectation(props));
   };
 
   /**
